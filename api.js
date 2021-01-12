@@ -29,28 +29,53 @@ Consumir una API d'informació meteorològica i mostrar-ho en la web. Aquesta AP
 Nota: Encara no és necessari maquetar la web, amb mostrar una paraula que indiqui el temps és suficient.
 
 - Exercici 4
-Maquetar la web d'acudits i temps meteorològic conforme a la següent pantalla:*/
+Maquetar la web d'acudits i temps meteorològic conforme a la següent pantalla:
+
+- Exercici 5
+Atès que els nostres usuaris s'han avorrit de veure sempre els mateixos acudits, buscar una altra API (o APIs) d'acudits i utilitzar-la per a alternar acudits de diferents fonts (bé alternant un de cada o de manera aleatòria).
+*/
 
 
 
+document.getElementById('fetchBtn').addEventListener('click', ()=>{
 
+    btn();
+    getJoke();
 
-document.getElementById('fetchBtn').addEventListener('click', btn);
-async function btn() {
-    const response = await fetch('https://icanhazdadjoke.com/', {
-        method: 'GET',
-        headers: { 'Accept': 'application/json' },
+    async function btn() {
+        const response = await fetch('https://icanhazdadjoke.com/', {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' },
+        })
+        const data = await response.json();
+        console.log(data)
+       
+    
+        document.getElementById("response").innerHTML =
+            ` </div class="text-center">
+                        <p class=""> ${data.joke} </p>
+                     </div>`;
+    
+    }
+
+    async function getJoke() {
+        const response = await fetch("https://api.chucknorris.io/jokes/random");
+        const data = await response.json();
+        console.log(data)
+    
+        document.getElementById("response").innerHTML =
+            ` </div class="text-center">
+                        <p class=""> ${data.value} </p>
+                     </div>`;
+    }
+    start().catch(error => {
+        console.error(error);
     })
-    const data = await response.json();
-    console.log(data)
-   
+    
 
-    document.getElementById("response").innerHTML =
-        ` </div class="text-center">
-                    <p class=""> ${data.joke} </p>
-                 </div>`;
 
-}
+});
+
 
 async function start() {
     const response = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Barcelona,es&units=metric&lang=ca&APPID=e50d99da7c6cb79a777875ea8f0a5b6e");
@@ -70,25 +95,6 @@ start().catch(error => {
     console.error(error);
 })
 
-
-/*- Falta Exercici 5
-Atès que els nostres usuaris s'han avorrit de veure sempre els mateixos acudits, buscar una altra API (o APIs) d'acudits i utilitzar-la per a alternar acudits de diferents fonts (bé alternant un de cada o de manera aleatòria).
-
-
-document.getElementById('fetchBtn').addEventListener('click', getJoke)
-async function getJoke() {
-    const response = await fetch("https://api.chucknorris.io/jokes/random");
-    const data = await response.json();
-    console.log(data)
-
-    document.getElementById("response").innerHTML =
-        ` </div class="text-center">
-                    <p class=""> ${data.value} </p>
-                 </div>`;
-}
-start().catch(error => {
-    console.error(error);
-})*/
 
 
 
