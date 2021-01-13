@@ -37,11 +37,13 @@ Atès que els nostres usuaris s'han avorrit de veure sempre els mateixos acudits
 
 
 
+//Wrap the functions to be connected with the button so that the jokes of the 2 APIs are alternated 
 document.getElementById('fetchBtn').addEventListener('click', ()=>{
 
     btn();
     getJoke();
 
+//Fetch a random joke API call
     async function btn() {
         const response = await fetch('https://icanhazdadjoke.com/', {
             method: 'GET',
@@ -57,7 +59,7 @@ document.getElementById('fetchBtn').addEventListener('click', ()=>{
                      </div>`;
     
     }
-
+//Second jokes API calling
     async function getJoke() {
         const response = await fetch("https://api.chucknorris.io/jokes/random");
         const data = await response.json();
@@ -76,7 +78,7 @@ document.getElementById('fetchBtn').addEventListener('click', ()=>{
 
 });
 
-
+// Wheather API calling
 async function start() {
     const response = await fetch("https://api.openweathermap.org/data/2.5/weather?q=Barcelona,es&units=metric&lang=ca&APPID=e50d99da7c6cb79a777875ea8f0a5b6e");
     const data = await response.json();
